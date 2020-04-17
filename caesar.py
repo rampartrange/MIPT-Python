@@ -54,7 +54,7 @@ def hack(args):
             for symbol in alphabet_lower:
                 shift_indexes[shift] += (model.get(symbol, 0) - current_model.get(symbol, 0)) ** 2
 
-            final_shift = final_shift if shift_indexes[final_shift] > shift_indexes[shift] else shift
+            final_shift = final_shift if shift_indexes[final_shift] < shift_indexes[shift] else shift
 
             next_model = deepcopy(current_model)
             for symbol_id in range(ALPHABET_POWER):
@@ -64,6 +64,6 @@ def hack(args):
             current_model = next_model
 
         args.key = str(final_shift)
-        encode(args)
+        decode(args)
     model_f.close()
 

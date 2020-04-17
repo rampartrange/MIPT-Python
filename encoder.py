@@ -9,6 +9,10 @@ from config import input_text, output_text
 def get_input(input_file):
 
     with open(input_text, "w") as input_t:
+        while input_file == input_text or input_file == output_text:
+            print("You're trying to use reserved filename '{}', please choose another name for you file:"
+                  "".format(input_file))
+            input_file = input()
         if input_file is None:
             print("Input your text:")
             input_t.write(sys.stdin.read())
@@ -18,10 +22,15 @@ def get_input(input_file):
                 input_t.write(input_f.read())
             input_f.close()
     input_t.close()
+    return input_file
 
 
 def get_output(output_file):
     with open(output_text, "r") as output_t:
+        while output_file == input_text or output_file == output_text:
+            print("You're trying to use reserved filename '{}', please choose another name for you file:"
+                  "".format(output_file))
+            output_file = input()
         if output_file is None:
             sys.stdout.write(output_t.read())
         else:
@@ -29,10 +38,11 @@ def get_output(output_file):
                 output_f.write(output_t.read())
             output_f.close()
     output_t.close()
+    return output_file
 
 
 def encode(args):
-    get_input(args.input_file)
+    args.input_file = get_input(args.input_file)
     while True:
         if args.cipher == "caesar":
             caesar.encode(args)
@@ -44,11 +54,11 @@ def encode(args):
         args.cipher = input()
         if args.cipher == "q":
             break
-    get_output(args.output_file)
+    args.output_file = get_output(args.output_file)
 
 
 def decode(args):
-    get_input(args.input_file)
+    args.input_file = get_input(args.input_file)
     while True:
         if args.cipher == "caesar":
             caesar.decode(args)
@@ -60,17 +70,17 @@ def decode(args):
         args.cipher = input()
         if args.cipher == "q":
             break
-    get_output(args.output_file)
+    args.output_file = get_output(args.output_file)
 
 
 def train(args):
-    trainer.get_json_model(args.text_file, args.model_file)
+    args.model_file = trainer.get_json_model(args.text_file, args.model_file)
 
 
 def hack(args):
-    get_input(args.input_file)
+    args.input_file = get_input(args.input_file)
     caesar.hack(args)
-    get_output(args.output_file)
+    args.output_file = get_output(args.output_file)
 
 
 parser = argparse.ArgumentParser()
@@ -113,3 +123,4 @@ arguments = parser.parse_args()
 
 arguments.function(arguments)
 
+print(arguments)

@@ -24,7 +24,12 @@ def get_updated_model(input_file):
 
 
 def get_json_model(input_file, model_file):
+    while model_file == input_text or model_file == output_text:
+        print("You're trying to use reserved filename '{}', please choose another name for your file"
+              "".format(model_file))
+        model_file = input()
     result = get_updated_model(input_file)
     with open(model_file, "w") as model_f:
         json.dump(result, model_f)
     model_f.close()
+    return model_file
