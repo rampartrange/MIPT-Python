@@ -122,5 +122,3 @@ hack_parser.add_argument("--output-file", dest="output_file", type=str, default=
 arguments = parser.parse_args()
 
 arguments.function(arguments)
-
-print(arguments)
