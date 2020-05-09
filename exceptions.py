@@ -17,12 +17,12 @@ def cast_key(key, cipher):
                     return key
 
         print("Key Type Exception occured \n"
-                  "Input key :{}\n" \
-                  "Input key's type :{}\n" \
-                  "Current cipher : {}\n" \
-                  "Required key's type {}\n".format(key, type(key),
-                                                    cipher, types_for_ciphers(cipher))
-                  )
+              "Input key :{}\n" \
+              "Input key's type :{}\n" \
+              "Current cipher : {}\n" \
+              "Required key's type {}\n".format(key, type(key),
+                                                cipher, types_for_ciphers(cipher))
+              )
         print("Enter correct key or press 'q' to quit")
         key = input()
         if key == "q":

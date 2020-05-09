@@ -1,5 +1,6 @@
 import json
-from config import input_text, output_text, alphabet_lower
+from config import input_text, output_text
+from string import ascii_lowercase
 
 
 def calc_stats(stats, input_file):
@@ -17,7 +18,7 @@ def get_updated_model(input_file):
     stats = dict()
     letters_num = calc_stats(stats, input_file)
     result = dict()
-    for symbol in alphabet_lower:
+    for symbol in ascii_lowercase:
         result[symbol] = stats.get(symbol, 0) / max(letters_num, 1)
 
     return result
