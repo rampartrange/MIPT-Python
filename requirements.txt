@@ -1,0 +1,5 @@
+Flask==0.10.1
+flask-wtf==0.14.3
+flask-migrate==1.4.2
+flask-sqlalchemy==2.4.1
+WTForms==2.3.1
