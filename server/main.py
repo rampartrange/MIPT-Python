@@ -4,7 +4,7 @@ from server.forms import LoginForm
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config import Configuration
+from server.config import Configuration
 
 app = Flask(__name__, template_folder='templates')
 app.config.from_object(Configuration)
@@ -19,21 +19,8 @@ def hello_world():
 
 @app.route('/index')
 def index():
-    user = {'username': 'Эльдар Рязанов'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful dayx in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        },
-        {
-            'author': {'username': 'Ипполит'},
-            'body': 'Какая гадость эта ваша заливная рыба!!'
-        }
-    ]
+    user = {'username': 'Artem'}
+    posts = ["Python is cool"]
     return render_template('index.html', title='Home', user=user, posts=posts)
 
 
