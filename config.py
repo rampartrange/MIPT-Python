@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 
+temp_db = {}
+
 
 class Configuration(object):
     # General Flask Config
@@ -13,6 +15,7 @@ class Configuration(object):
     SECRET_KEY = 'very secret key'
     USERNAME = 'admin'
     PASSWORD = '123'
+
     # Flask-Assets
     LESS_BIN = environ.get('LESS_BIN')
     ASSETS_DEBUG = environ.get('ASSETS_DEBUG')
@@ -25,6 +28,6 @@ class Configuration(object):
 
     # Database Config
     SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL') or \
-        'sqlite:///' + path.join(basedir, 'User storage.db')
+        'sqlite:///' + path.join(basedir, 'app.db')
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
