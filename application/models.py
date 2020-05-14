@@ -23,7 +23,6 @@ class User(UserMixin, db.Model):
                     nullable=True)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow())
 
-
     def __repr__(self):
         return f'<User {self.username}>'
 

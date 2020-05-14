@@ -3,9 +3,9 @@ from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, login_required, logout_user
 from flask import current_app as app
 from wtforms import ValidationError
-
+from datetime import datetime
 from .models import db, User, is_username_valid
-from .forms import LoginForm, SignUnForm
+from .forms import LoginForm, SignUnForm, ProfileEditForm
 
 
 @app.route('/')
@@ -39,12 +39,6 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
-
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if current_user.is_authenticated:
@@ -65,6 +59,12 @@ def sign_up():
     return render_template('signup.html', title='Sign Up', form=form)
 
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
 @app.route('/user/<username>')
 @login_required
 def user_profile(username):
@@ -74,3 +74,26 @@ def user_profile(username):
         {'author': user, 'body': 'Test post #2'}
     ]
     return render_template('user.html', user=user, posts=posts)
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = ProfileEditForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.bio = form.bio.data
+        db.session.commit()
+        flash(f'Your profile information has been changed successfully')
+        return redirect(url_for('edit_profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.bio.data = current_user.bio
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()

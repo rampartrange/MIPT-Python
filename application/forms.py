@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, EqualTo
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms.validators import ValidationError, DataRequired, EqualTo, Length
 from wtforms.validators import DataRequired
 from .models import User
 from flask import flash
@@ -20,3 +20,7 @@ class SignUnForm(FlaskForm):
     signup = SubmitField('Sign up')
 
 
+class ProfileEditForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    bio = TextAreaField('Bio', validators=[Length(min=0, max=264)])
+    submit = SubmitField('Submit')
