@@ -1,20 +1,21 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - FlaskMessenger</title>
+            <title>{{ title }} - FlaskMessenger</title>
         {% else %}
-        <title>FlaskMessenger</title>
+            <title>FlaskMessenger</title>
         {% endif %}
     </head>
     <body>
          <div>
             FlaskMessenger:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('sign_up') }}">Sign Up</a>
+                <a href="{{ url_for('index') }}">Home</a>
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('sign_up') }}">Sign Up</a>
             {% else %}
-            <a href="{{ url_for('logout') }}">Logout</a>
+                <a href="{{ url_for('user_profile', username = current_user.username) }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
         </div>
         <hr>
@@ -22,7 +23,7 @@
         {% if messages %}
         <ul>
             {% for message in messages %}
-            <li>{{ message }}</li>
+                <li>{{ message }}</li>
             {% endfor %}
         </ul>
         {% endif %}
