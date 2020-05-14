@@ -2,7 +2,6 @@ from flask import render_template, redirect, url_for, flash, request
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, login_required, logout_user
 from flask import current_app as app
-from wtforms import ValidationError
 from datetime import datetime
 from .models import db, User, is_username_valid
 from .forms import LoginForm, SignUnForm, ProfileEditForm
