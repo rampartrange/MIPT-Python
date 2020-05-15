@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'app'
+    __tablename__ = 'user'
     id = db.Column(db.Integer,
                    primary_key=True)
     username = db.Column(db.String(64),
@@ -21,7 +21,8 @@ class User(UserMixin, db.Model):
                     index=False,
                     unique=False,
                     nullable=True)
-    last_seen = db.Column(db.DateTime, default=datetime.utcnow())
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -34,6 +35,23 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+class Post(db.Model):
+    __tablename__ = 'post'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64),
+                      index=False,
+                      unique=True,
+                      nullable=False)
+    text = db.Column(db.Text,
+                     index=False,
+                     unique=False,
+                     nullable=False)
+    timestamp = db.Column(db.DateTime,
+                          index=True,
+                          default=datetime.utcnow())
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 @login_manager.user_loader

@@ -3,9 +3,14 @@
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
     <hr>
-    {% for user in users %}
+    <h2>Here's recent posts for you:</h2>
+    {% for id, post in posts %}
     <p>
-        {{ user.username }} says: <b> Ахаха ты пишешь на питоне </b>
+        <h3>{{ id }}. {{ post.title }} :</h3>
+        <b>{{ post.text }}</b>
+        <p>Created by:
+        <a href="{{ url_for('user_profile', username = post.author.username) }}"> {{ post.author.username }} </a>
+        on : {{ post.timestamp }}</p>
     </p>
     {% endfor %}
 {% endblock %}

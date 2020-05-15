@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-class SignUnForm(FlaskForm):
+class SignUpForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     repeat_password = PasswordField('Repeat Password',validators=[DataRequired(), EqualTo('password')])
@@ -23,4 +23,10 @@ class SignUnForm(FlaskForm):
 class ProfileEditForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     bio = TextAreaField('Bio', validators=[Length(min=0, max=264)])
+    submit = SubmitField('Submit')
+
+
+class PostCreateForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    text = TextAreaField('Text', validators=[Length(min=0, max=256)])
     submit = SubmitField('Submit')
