@@ -104,13 +104,13 @@ def create_post():
     return render_template('create_post.html', title='Create new post', form=form)
 
 
-@app.route('/delete_post/<post_id>', methods=['GET', 'POST'])
+@app.route('/user/<username>/delete_post/<post_id>', methods=['GET', 'POST'])
 @login_required
-def delete_post(post_id):
-    post = Post.query.filter_by(id=post_id, author=current_user).first()
+def delete_post(post_id, username=current_user):
+    post = Post.query.filter_by(id=post_id).first()
     db.session.delete(post)
     db.session.commit()
-    return redirect(url_for('user_profile', username=current_user.username))
+    return redirect(url_for('user_profile', username=username))
 
 
 @app.before_request
