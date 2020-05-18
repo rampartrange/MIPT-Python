@@ -1,6 +1,12 @@
 from os import environ, path
 from dotenv import load_dotenv
 
+BIO_MAX_LENGTH = 260
+POST_MAX_LENGTH = 260
+USERNAME_MAX_LENGTH = 60
+PASSWORD_MAX_LENGTH = 60
+TITLE_MAX_LENGTH = 60
+
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 

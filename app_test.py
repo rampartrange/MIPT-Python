@@ -4,7 +4,6 @@ from application import db
 
 
 class TestUserModel(unittest.TestCase):
-
     def test_check_fields(self):
         user = User()
         user.set_username('test')
@@ -32,7 +31,6 @@ class TestUserModel(unittest.TestCase):
 
 
 class TestPostModel(unittest.TestCase):
-
     def test_check_fields(self):
         post = Post()
         post.title = 'test'
@@ -41,7 +39,7 @@ class TestPostModel(unittest.TestCase):
         self.assertEqual(post.title, 'test')
         self.assertNotEqual(post.title, 'test1')
         self.assertTrue(post.text, 'text_test')
-        self.assertNotEqual(post.text, 'Python sucks')
+        self.assertNotEqual(post.text, 'Python is cool!!!')
 
 
 if __name__ == '__main__':

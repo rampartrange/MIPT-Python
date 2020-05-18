@@ -3,17 +3,18 @@ from flask_login import UserMixin
 from flask import flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from config import USERNAME_MAX_LENGTH, PASSWORD_MAX_LENGTH, TITLE_MAX_LENGTH
 
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer,
                    primary_key=True)
-    username = db.Column(db.String(64),
+    username = db.Column(db.String(USERNAME_MAX_LENGTH),
                          index=False,
                          unique=True,
                          nullable=False)
-    password = db.Column(db.String(64),
+    password = db.Column(db.String(PASSWORD_MAX_LENGTH),
                          index=False,
                          unique=False,
                          nullable=False)
@@ -40,7 +41,7 @@ class User(UserMixin, db.Model):
 class Post(db.Model):
     __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(64),
+    title = db.Column(db.String(TITLE_MAX_LENGTH),
                       index=False,
                       unique=True,
                       nullable=False)
