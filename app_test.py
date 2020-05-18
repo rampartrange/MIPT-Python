@@ -15,7 +15,7 @@ class TestUserModel(unittest.TestCase):
         self.assertTrue(user.check_password('test'))
         self.assertFalse(user.check_password('test1'))
         self.assertEqual(user.bio, 'I am test')
-        self.assertNotEqual(user.bio, 'Python sucks')
+        self.assertNotEqual(user.bio, 'Python is cool!!!')
 
     def test_user_load(self):
         self.assertEqual(load_user(1).id, 1)
